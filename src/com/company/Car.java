@@ -106,37 +106,37 @@ public class Car
 		Car child=new Car(nodes);
 		//YOUR WORK HERE
 		//Choose a random crossover point.
-		int crossPoint = randint(5,50);
+		int crossPoint = randint(5,nodes);
 		//Also choose a car to go first
 		for(int i=0;i<crossPoint;i++)
 		{
 			// copy the balls from the first car's balls_x and balls_y to the child
-			child.balls_x = thisCar.balls_x;
-			child.balls_y = thisCar.balls_y;
+			child.balls_x[i] = thisCar.balls_x[i];
+			child.balls_y[i] = thisCar.balls_y[i];
 		}
 		// after the crossover, copy the balls_x and balls_y from the second car to the child
-		for(int i=crossPoint;i<50;i++)
+		for(int i=crossPoint;i<nodes;i++)
 		{
-			child.balls_x = c.balls_x;
-			child.balls_y = c.balls_y;
+			child.balls_x[i] = c.balls_x[i];
+			child.balls_y[i] = c.balls_y[i];
 		}
 		//pick a new crossover point, then do the same with the linkmatrix
-		int crossPoint2 = randint(5,50);
+		int crossPoint2 = randint(5,nodes);
 		if(crossPoint2 == crossPoint)
 		{
 			crossPoint2++;
-			if(crossPoint2 > 50)
+			if(crossPoint2 > nodes)
 			{
 				crossPoint2 = crossPoint2-2;
 			}
 		}
 		for(int i=0;i<crossPoint2;i++)
 		{
-			child.linkmatrix = thisCar.linkmatrix;
+			child.linkmatrix[i] = thisCar.linkmatrix[i];
 		}
-		for(int i=crossPoint2;i<50;i++)
+		for(int i=crossPoint2;i<nodes;i++)
 		{
-			child.linkmatrix = c.linkmatrix;
+			child.linkmatrix[i] = c.linkmatrix[i];
 		}
 
 		return child;
@@ -166,7 +166,14 @@ public class Car
 				i = randint(5,50);
 			}
 			//Then copy over the links
-			newcar.linkmatrix = thisCar.linkmatrix;
+			for(int i = 0; i<linkmatrix.length;i++)
+			{
+				for (int j = 0; j < linkmatrix[i].length;j++)
+				{
+					newcar.linkmatrix[i][j] = thisCar.linkmatrix[i][j];
+				}
+			}
+
 			//with probability "probability", set the link to true/false (50/50 chance)
 			if(Math.random()<probability)
 			{
@@ -175,7 +182,6 @@ public class Car
 						newcar.linkmatrix[i][j] = !newcar.linkmatrix[i][j];
 			}
 		}
-
 		return newcar;
 	}
 }

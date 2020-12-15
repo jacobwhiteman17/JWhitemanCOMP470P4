@@ -42,7 +42,7 @@ public class GeneticCars implements MouseListener
 	public static final double MUTATE_SELECTION_RATE=0.5;
 
 	//if the mutant is made, the probability that any single ball position or link is altered
-	public static final double MUTATE_RATE=0.1;
+	public static final double MUTATE_RATE=0.2;
 
 
 	//This arraylist holds the population of cars
@@ -77,6 +77,10 @@ public class GeneticCars implements MouseListener
 			kill();
 			mutate();
 			System.out.println("Generation "+(g+1)+": best car has distance "+population.get(0).score_position+"/500, Iterations "+population.get(0).score_iterations+"/2000");
+			if (population.get(0).score_position >= 500)
+			{
+				break;
+			}
 		}
 	}
 
